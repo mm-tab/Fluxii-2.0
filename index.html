@@ -1874,11 +1874,10 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
     const payload = Object.fromEntries(new FormData(e.target));
-    payload._subject = 'New quote request — Fluxii';
-    payload._template = 'table';
-    payload._captcha = 'false';
+    payload.access_key = 'bacce95a-a164-4669-8a0c-d6710220110f';
+    payload.subject = 'New quote request — Fluxii';
     try {
-      const res = await fetch('https://formsubmit.co/ajax/contact@fluxiiwebsites.com', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
