@@ -1716,7 +1716,8 @@
       <p>Tell us how to reach you and what you want help with. We can collect the details together after we connect.</p>
     </div>
     <div class="fade">
-      <form id="contactForm" name="contact" novalidate>
+      <form id="contactForm" name="contact" netlify data-netlify="true" novalidate>
+        <input type="hidden" name="form-name" value="contact">
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name">
@@ -1879,14 +1880,12 @@
     const btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.textContent = 'Sending…';
-    const payload = Object.fromEntries(new FormData(e.target));
-    payload.access_key = 'bacce95a-a164-4669-8a0c-d6710220110f';
-    payload.subject = 'New quote request — Fluxii';
+    const formData = new FormData(e.target);
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
       });
       if (!res.ok) throw new Error();
       e.target.style.display = 'none';
